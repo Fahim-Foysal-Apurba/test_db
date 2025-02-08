@@ -21,7 +21,7 @@ app.get('/test-db', (req, res) => {
       res.render('database', { status: 'Error connecting to the database: ' + err.stack });
       return;
     }
-    db.query('SELECT 1 + 1 AS solution', (err, results) => {
+    db.query('SELECT * from user', (err, results) => {
       db.end(); // Close the connection after query
       if (err) {
         console.error('Error querying the database:', err.stack);
@@ -31,7 +31,7 @@ app.get('/test-db', (req, res) => {
 
       // Use 'results.rows' to access the rows returned by PostgreSQL
       if (results.rows && results.rows.length > 0) {
-        res.render('database', { status: 'Database connection test successful! Result: ' + results.rows[0].solution });
+        res.render('database', { status: 'Database connection test successful! Result: ' + results });
       } else {
         res.render('database', { status: 'No rows returned from the query.' });
       }
